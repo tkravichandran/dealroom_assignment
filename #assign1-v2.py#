@@ -121,7 +121,7 @@ current_url = driver_c.current_url
 print(current_url)
 rating = driver_c.find_element_by_xpath(
     "//span[@class='fw-semibold']").get_attribute("textContent")
-print("rating")
+print(rating)
 
 n_reviews = driver_c.find_element_by_xpath(
     "//div[@class='star-wrapper__desc']").get_attribute("textContent")
