@@ -18,7 +18,7 @@ from random import randint,uniform
 import re
 from urllib.parse import urlparse
 
-############################# Focussing #############
+############################# Definitions of functions #############
 
 # Cleaning the name
 def clean_name(cname):
@@ -33,7 +33,7 @@ def clean_c_website(o):
 
 # Search url and accept cookies
 def open_website(url):
-
+    # Open the website on chrome
     driver = webdriver.Chrome(options=options,
                           executable_path=path)
     driver.get(url)
@@ -41,6 +41,7 @@ def open_website(url):
     time.sleep(uniform(6,11))# sleep for random time before clicking
     print("Title is:  ", driver.title)
 
+    #Accept cookies
     try:
         driver.find_element_by_xpath(
             "//input[@value='I accept all cookies']").click()
@@ -49,8 +50,9 @@ def open_website(url):
         
     return driver
 
-
+#Initialize the variables in the dictionary to empty
 def initialize_output():
+
     var_lst = ["current_url", "website","alt_website","rating","n_reviews","desc",
                 "prod_det", "language", "seller_who",
                 "seller_location", "seller_year", "pricing_lite",
@@ -58,7 +60,7 @@ def initialize_output():
                 ,"alternatives"]
     return dict.fromkeys(var_lst,"")
 
-# Extract the different sites from the search
+# Extract the different sites from the search Results
 def extract_g2_sites(driver):
     
     search_results = []
@@ -73,14 +75,17 @@ def extract_g2_sites(driver):
     
     if len(search_results)>0:
         for result in search_results:
+            # Get link to reviews
             url_g2s.append(result.find_element_by_link_text(
                 "Reviews").get_attribute("href"))
+            # Get link to alternatives
             url_g2s_alt.append(result.find_element_by_link_text(
                 "Alternatives").get_attribute("href"))
             
     print(url_g2s,url_g2s_alt)
     return url_g2s,url_g2s_alt
 
+# Extract company website from the g2 reviews site
 def get_company_website_from_g2_site(url):
 
     driver = open_website(url)
@@ -88,11 +93,6 @@ def get_company_website_from_g2_site(url):
     c_website_g2 = driver.find_element_by_xpath("//a[@class='link']").get_attribute("href")
 
     return c_website_g2, driver
-
-# # get text from xpath
-# def get_text_from_xpath(driver_c,xpath):
-#     driver_c.find_element_by_xpath(
-#         xpath).get_attribute("textContent")
 
 # Gets all deatils necessary
 def get_details(driver_c,output):
@@ -122,7 +122,7 @@ def get_details(driver_c,output):
         print("Exception in website and description")
         print("Exception is", repr(e))
         
-        # show more to unlock other details
+    # Click show more to unlock other Product and Seller details
     try:
         show_more = driver_c.find_element_by_xpath(
             "//*[@id='leads-sticky-top']/div/div[1]/div[3]/div[1]/div[2]/a")
@@ -137,7 +137,7 @@ def get_details(driver_c,output):
         print("exception in showmore")
         print("Exception is", repr(e))
         
-        # product details
+    # Product and Seller details
     try:
         output["prod_det"] = driver_c.find_element_by_xpath(
             "//div[@class='p-1 border-top']/div[@class='js-show-more-detail']/p").get_attribute("textContent")
@@ -155,7 +155,7 @@ def get_details(driver_c,output):
     except Exception as e:
         print("Exception in product and seller data")
         print("Exception is", repr(e))   
-        # pricing (optional)
+    # pricing (optional)
     try:
         output["pricing_lite"] = driver_c.find_element_by_xpath("//*[@id='leads-sticky-top']/div/div[2]/div[1]/div/div[1]/div[1]/a[1]/div[2]").get_attribute("textContent")
         
@@ -175,7 +175,7 @@ def get_alternatives(url_alt,output):
         alt_lst =[]
         for alt in alts:
             temp = alt.get_attribute("textContent")
-            temp = temp[:temp.find("(")]
+            temp = temp[:temp.find("(")] # scrape the part that is necessary
             #temp = alt.find_element_by_xpath("//div[@itemprop='name']").get_attribute("textContent")
             #print(alt.get_attribute("textContent")) # doesn't work for some reason
             print(temp)
@@ -188,6 +188,7 @@ def get_alternatives(url_alt,output):
         driver.close()
 
 ######################################## Main ###############
+#######################################        ##############
 
 # Set options to "make it hard for the website to detect"
 options = Options()
@@ -203,7 +204,7 @@ df_t = pd.read_csv("data_scientist_intern_g2_scraper.csv")
 df = df_t.copy()
 
 # Choosing range from CSV to extract
-row_lst = list(range(200))#[3,0,4,10,8]#randint(0,100)
+row_lst = [8,9,10] #list(range(200))#[3,0,4,10,8]#randint(0,100)
 start = time.time()
 
 # running the loop over all names
@@ -281,20 +282,8 @@ for i in row_lst:
    
 end=time.time()
 print(end-start)
-df.to_csv("assign1-200-1.csv")
-## Testing script
+df.to_csv("assign1-200.csv", index=False)
 
-# driver = open_website("https://www.g2.com/products/unmind/reviews")
-# alts1 = driver.find_element_by_xpath("//div[@class='hide-for-custom-profile hide-for-small-only']")
-# alts2 = alts1.find_elements_by_tag_name("a")
-# alt_lst=[]
-# for alt in alts2:
-#     if alt==alts2[-1]: break
-#     text = alt.find_element_by_class_name(
-#         "col-2").get_attribute("textContent")
-#     print(text)
-#     alt_lst.append(re.sub("[1-9].*","",text))#clean and send
-#     output["alternatives"] = "-".join(alt_lst)
 
 
         

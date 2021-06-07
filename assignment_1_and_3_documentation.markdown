@@ -40,6 +40,12 @@ scraped. The point is the code and the logic.
 
 Scrape information from product websites from G2.
 
+**The structure of the code is as follows**:
+
+1. Import statements
+2. Definition of all functions used
+3. Actual script running all the functions
+
 **Method and pseudo code**
 
 1. Get search results
@@ -81,8 +87,6 @@ Scrape information from product websites from G2.
 - Used `Selenium` as the single tool for web navigation and
   scraping along with `fake_useragent`. 
   
-
-
 **Avoiding captcha and other prevention measures**
 
 1. I was able to access websites using Selenium, but only the
@@ -102,21 +106,22 @@ CloudFare".
 
 - Slow processing (>5s only to open a file) mainly due to avoiding
   "DDOS Protection"
-- Sometimes not all values are scraped as "try excepts" are not made
-for every single output extracted, but for a group of outputs (but this could be done).
+- Got blocked while scraping approximately 140 companies.
 
 - There is variation in g2-product-websites accessed. Current script
 is able to handle many variations but not all. Program will continue
 but we might be missing some data. (Example, Company Alan gives not much
 additional data as the site Xpath is considerable different.)
 
-- Got blocked while scraping approximately 140 companies.
+- In cases with Language,Seller locations Alternatives, there seems to
+  be more variation in the website which needs to be taken into
+  account.
 
 **Salient features**
-- Able to extract alternatives and pricing when available
+- Able to extract alternatives and pricing when available.
 - Exceptions handled to keep the script going on.
+- Using different `userAgent`'s to misdirect `g2`
 
-<div class="fw-semibold c-midnight-100 word-break-word">Woliba</div>
 **Verbose Print output for checking**
 
 ``` python
