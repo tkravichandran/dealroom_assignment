@@ -46,7 +46,7 @@ Scrape information from product websites from G2.
    1. Initial cleaning of name (to make it searchable)
    2. Open Search results directly using company name (`cname`)
    `driver.get("https://www.g2.com/search?utf8=%E2%9C%93&query="+cname)`
-2. Scrape upto first 20 results and find which is the "right company"
+2. Scrape upto first 20 results and find which is the "corresponding company"
    1. Get g2-website for each of the results
    2. Search the g2-website to get company website
    3. Check if the company website matches the website from the CSV
