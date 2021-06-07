@@ -1,4 +1,4 @@
-## final output
+## Essential info
 
 - 1 pg description file that summarises the logic and code used for
   the assignment.
@@ -14,7 +14,7 @@ pierre@dealroom.co.
 Exercise 1: G2 Scraper
 
 In the attachments you will find a file called
-“data_scientist_intern_g2_scraper.csv”, which contains 1,350
+“data\_scientist\_intern\_g2\_scraper.csv”, which contains 1,350
 companies. Each company has an id, name, website, short description,
 address and industry.
 
@@ -107,8 +107,10 @@ for every single output extracted, but for a group of outputs (but this could be
 
 - There is variation in g2-product-websites accessed. Current script
 is able to handle many variations but not all. Program will continue
-but we might be missing some data. (Example, Company Alan gives no
+but we might be missing some data. (Example, Company Alan gives not much
 additional data as the site Xpath is considerable different.)
+
+- Got blocked while scraping approximately 140 companies.
 
 **Salient features**
 - Able to extract alternatives and pricing when available
@@ -122,14 +124,12 @@ additional data as the site Xpath is considerable different.)
 Forecast is being searched
 title is G2 Search: Forecast
 Number of search results are 20
-['https://www.g2.com/products/forecast-forecast/reviews', 'https://www.g2.com/products/forecast/reviews', 'https://www.g2.com/products/amazon-forecast/reviews', 'https://www.g2.com/products/forecast-pro/reviews', 'https://www.g2.com/products/forecast-5/reviews', 'https://www.g2.com/products/site-forecast/reviews', 'https://www.g2.com/products/forecast-edge/reviews', 'https://www.g2.com/products/sas-forecast-server/reviews', 'https://www.g2.com/products/buyer-s-toolbox-forecast/reviews', 'https://www.g2.com/products/floodmapp-forecast/reviews', 'https://www.g2.com/products/demand-forecast-planning/reviews', 'https://www.g2.com/products/sales-forecast-navigator/reviews', 'https://www.g2.com/products/sas-forecast-analyst-workbench/reviews', 'https://www.g2.com/products/construction-cash-flow-forecast/reviews', 'https://www.g2.com/products/demand-management-forecast-management/reviews', 'https://www.g2.com/products/claplan-forecast-monitor-training-plans-and-needs/reviews', 'https://www.g2.com/products/forecastx-wizard/reviews', 'https://www.g2.com/products/forecastingsoftware-com/reviews', 'https://www.g2.com/products/forecastable/reviews', 'https://www.g2.com/products/dude-solutions-capital-forecasting/reviews']
-
-
+...
 Looping through the different search results
-title is Forecast Reviews 2021: Details, Pricing, & Features | G2
-found match with company website from CSV @ 0 index
-getting details for Forecast
-showing more
+Title is Forecast Reviews 2021: Details, Pricing, & Features | G2
+Found match with company website from CSV @ 0 index
+Getting details for Forecast
+Showing more
 
 
 id                                                            975908
@@ -151,7 +151,7 @@ seller_location                       HQ LocationCopenhagen, Denmark
 seller_year                                         Year Founded2016
 pricing_lite                                       $29per seat/month
 pricing_pro                                        $29per seat/month
-alternatives       ForecastVSmonday.com-ForecastVSAvaza-ForecastV...
+alternatives                                    #1monday.com-#2Avaza
 Name: 4, dtype: object
 ```
 
